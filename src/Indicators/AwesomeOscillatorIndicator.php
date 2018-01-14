@@ -3,7 +3,7 @@
 namespace Laratrade\Indicators\Indicators;
 
 use Illuminate\Support\Collection;
-use Laratrade\Indicators\Contracts\Indicator;
+use Laratrade\Indicators\Contracts\Indicators\Indicator;
 
 class AwesomeOscillatorIndicator implements Indicator
 {
