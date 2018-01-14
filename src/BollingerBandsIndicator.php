@@ -36,8 +36,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class BollingerBandsIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 10, int $devup = 2, int $devdn = 2)
-    : int {
+    public function __invoke(Collection $ohlcv, int $period = 10, int $devup = 2, int $devdn = 2): int
+    {
 
         $data2 = $ohlcv;
 
@@ -50,7 +50,8 @@ class BollingerBandsIndicator implements Indicator
             $period,
             $devup,
             $devdn,
-            0);
+            0
+        );
 
         if (false === $bbands) {
             throw new NotEnoughDataPointsException('Not enough data points');
@@ -58,7 +59,7 @@ class BollingerBandsIndicator implements Indicator
 
         $upper = $bbands[0];
 
-        // $middle = $bbands[1]; 
+        // $middle = $bbands[1];
         // we'll find a use for you, one day
         $lower = $bbands[2];
 
@@ -72,5 +73,4 @@ class BollingerBandsIndicator implements Indicator
             return static::HOLD;
         }
     }
-
 }

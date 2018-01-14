@@ -18,8 +18,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class HilbertTransformSinewaveIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, bool $trend = false)
-    : int {
+    public function __invoke(Collection $ohlcv, bool $trend = false): int
+    {
 
         $hts = trader_ht_sine($ohlcv->get('open'), $ohlcv->get('close'));
         if (false === $hts) {
@@ -56,5 +56,4 @@ class HilbertTransformSinewaveIndicator implements Indicator
 
         return static::HOLD;
     }
-
 }

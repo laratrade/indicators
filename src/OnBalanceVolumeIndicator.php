@@ -17,8 +17,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class OnBalanceVolumeIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 14)
-    : int {
+    public function __invoke(Collection $ohlcv, int $period = 14): int
+    {
 
         $obv = trader_obv($ohlcv->get('close'), $ohlcv->get('volume'));
 
@@ -42,5 +42,4 @@ class OnBalanceVolumeIndicator implements Indicator
             return static::HOLD;
         }
     }
-
 }

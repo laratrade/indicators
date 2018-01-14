@@ -25,8 +25,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class MarketMeannessIndexIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 200)
-    : int {
+    public function __invoke(Collection $ohlcv, int $period = 200): int
+    {
 
         $data_close = [];
         foreach ($ohlcv->get('close') as $point) {
@@ -56,5 +56,4 @@ class MarketMeannessIndexIndicator implements Indicator
 
         return static::HOLD;
     }
-
 }

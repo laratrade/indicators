@@ -21,8 +21,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
  */
 class MoneyFlowIndexIndicator implements Indicator
 {
-    public function __invoke(Collection $ohlcv, int $period = 14)
-    : int {
+    public function __invoke(Collection $ohlcv, int $period = 14): int
+    {
         $mfi = trader_mfi(
             $ohlcv->get('high'),
             $ohlcv->get('low'),
@@ -45,5 +45,4 @@ class MoneyFlowIndexIndicator implements Indicator
 
         return static::HOLD;
     }
-
 }

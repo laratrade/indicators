@@ -18,8 +18,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class CommodityChannelIndexIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 14)
-    : int {
+    public function __invoke(Collection $ohlcv, int $period = 14): int
+    {
 
         # array $high , array $low , array $close [, integer $timePeriod ]
         $cci = trader_cci($ohlcv->get('high'), $ohlcv->get('low'), $ohlcv->get('close'), $period);
@@ -38,5 +38,4 @@ class CommodityChannelIndexIndicator implements Indicator
             return static::HOLD;
         }
     }
-
 }

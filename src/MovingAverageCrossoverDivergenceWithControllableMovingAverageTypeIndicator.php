@@ -15,12 +15,28 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $fastPeriod = 12, int $fastMAType = 0, int $slowPeriod = 26, int $slowMAType = 0, int $signalPeriod = 9, int $signalMAType = 0)
-    : int {
+    public function __invoke(
+        Collection $ohlcv,
+        int $fastPeriod = 12,
+        int $fastMAType = 0,
+        int $slowPeriod = 26,
+        int $slowMAType = 0,
+        int $signalPeriod = 9,
+        int $signalMAType = 0
+    ): int {
 
         // Create the MACD signal and pass in the three parameters: fast period, slow period, and the signal.
         // we will want to tweak these periods later for now these are fine.
-        $macd = trader_macdext($ohlcv->get('close'), $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType);
+        $macd = trader_macdext(
+            $ohlcv->get('close'),
+            $fastPeriod,
+            $fastMAType,
+            $slowPeriod,
+            $slowMAType,
+            $signalPeriod,
+            $signalMAType
+        );
+
         if (false === $macd) {
             throw new NotEnoughDataPointsException('Not enough data points');
         }
@@ -40,5 +56,4 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
 
         return -2;
     }
-
 }

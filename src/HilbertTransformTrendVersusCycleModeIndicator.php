@@ -17,8 +17,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, bool $numperiods = false)
-    : int {
+    public function __invoke(Collection $ohlcv, bool $numperiods = false): int
+    {
 
         $a_htm = trader_ht_trendmode($ohlcv->get('close'));
 
@@ -62,5 +62,4 @@ class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
 
         return 0; // we are cycling.
     }
-
 }

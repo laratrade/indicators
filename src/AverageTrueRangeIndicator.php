@@ -22,8 +22,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class AverageTrueRangeIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 14)
-    : int {
+    public function __invoke(Collection $ohlcv, int $period = 14): int
+    {
 
         if ($period > count($ohlcv->get('close'))) {
             $period = round(count($ohlcv->get('close')) / 2);
@@ -37,15 +37,15 @@ class AverageTrueRangeIndicator implements Indicator
             $ohlcv->get('high'),
             $ohlcv->get('low'),
             $ohlcv->get('close'),
-            $period);
+            $period
+        );
 
         if (false === $atr) {
             throw new NotEnoughDataPointsException('Not enough data points');
         }
 
 
-        $atr = array_pop($atr); //[count($atr)-1]; 
-        // pick off the last
+        $atr = array_pop($atr); // pick off the last
 
         // An upside breakout occurs when the price goes 1 ATR above the previous close
         $upside_signal = ($current - ($prev_close + $atr));
@@ -61,5 +61,4 @@ class AverageTrueRangeIndicator implements Indicator
 
         return static::HOLD;
     }
-
 }
