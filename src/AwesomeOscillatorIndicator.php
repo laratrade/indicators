@@ -1,9 +1,9 @@
 <?php
 
-namespace Laratrade\Indicators\Indicators;
+namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
-use Laratrade\Indicators\Contracts\Indicators\Indicator;
+use Laratrade\Indicators\Contracts\Indicator;
 
 class AwesomeOscillatorIndicator implements Indicator
 {
