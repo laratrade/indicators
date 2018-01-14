@@ -40,7 +40,7 @@ class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
          */
         if ($numperiods) {
             $nump = 1;
-            $test = $htm;
+
             for ($b = 0; $b < count($a_htm); $b++) {
                 $test = array_pop($a_htm);
                 if ($test == $htm) {

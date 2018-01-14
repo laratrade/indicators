@@ -48,7 +48,6 @@ class MovingAverageCrossoverDivergenceIndicator implements Indicator
 
         $macd_raw = $macd[0];
         $signal = $macd[1];
-        $hist = $macd[2];
 
         //If not enough Elements for the Function to complete
         if (!$macd || !$macd_raw) {
