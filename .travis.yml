@@ -13,7 +13,7 @@ cache:
         - $HOME/.composer/cache
 
 before_script:
-    - pecl isntall trader
+    - sudo pecl isntall trader
     - composer update --no-interaction --prefer-dist
 
 script:
