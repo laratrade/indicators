@@ -3,6 +3,7 @@
 namespace Laratrade\Indicators;
 
 use Closure;
+use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Contracts\IndicatorManager as IndicatorManagerContract;
 use Laratrade\Indicators\Exceptions\IndicatorNotFoundException;
 
@@ -21,9 +22,25 @@ class IndicatorManager implements IndicatorManagerContract
      * @param string  $indicator
      * @param Closure $resolver
      */
-    public function add(string $indicator, Closure $resolver)
+    public function extend(string $indicator, Closure $resolver)
     {
         $this->indicators[$indicator] = $resolver;
+    }
+
+    /**
+     * Resolve an indicator.
+     *
+     * @param string $indicator
+     *
+     * @return Indicator
+     */
+    public function resolve(string $indicator)
+    {
+        if (!isset($this->indicators[$indicator])) {
+            throw new IndicatorNotFoundException;
+        }
+
+        return call_user_func($this->indicators[$indicator]);
     }
 
     /**
@@ -36,10 +53,6 @@ class IndicatorManager implements IndicatorManagerContract
      */
     public function __call(string $indicator, array $parameters): int
     {
-        if (!isset($this->indicators[$indicator])) {
-            throw new IndicatorNotFoundException;
-        }
-
-        return call_user_func($this->indicators[$indicator])($parameters[0]);
+        return $this->resolve($indicator)($parameters[0]);
     }
 }
