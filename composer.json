@@ -1,0 +1,61 @@
+{
+    "name": "laratrade/indicators",
+    "type": "library",
+    "description": "Laravel package for trading indicators.",
+    "keywords": [
+        "laravel",
+        "trading",
+        "indicators"
+    ],
+    "homepage": "https://github.com/laratrade/indicators",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Evgenii Nasyrov",
+            "email": "inasyrov@ya.ru",
+            "homepage": "https://github.com/nasyrov",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "5.5.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "~1.0",
+        "orchestra/testbench": "~3.5",
+        "phpunit/phpunit": "~6.5",
+        "squizlabs/php_codesniffer": "~3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laratrade\\Indicators\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laratrade\\Indicators\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "lint": "phpcs -p --standard=psr2 src",
+        "phpunit": "phpunit",
+        "phpunit-integration": "phpunit --testsuite Integration",
+        "phpunit-unit": "phpunit --testsuite Unit",
+        "phpunit-coverage": "phpunit --coverage-clover=coverage.clover",
+        "test": [
+            "@lint",
+            "@phpunit"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laratrade\\Indicators\\IndicatorServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
