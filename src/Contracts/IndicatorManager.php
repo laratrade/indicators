@@ -16,5 +16,14 @@ interface IndicatorManager
      * @param string  $indicator
      * @param Closure $resolver
      */
-    public function add(string $indicator, Closure $resolver);
+    public function extend(string $indicator, Closure $resolver);
+
+    /**
+     * Resolve an indicator.
+     *
+     * @param string $indicator
+     *
+     * @return Indicator
+     */
+    public function resolve(string $indicator);
 }

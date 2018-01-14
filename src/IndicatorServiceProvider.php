@@ -45,7 +45,7 @@ class IndicatorServiceProvider extends ServiceProvider
      */
     protected function registerAoIndicator(IndicatorManagerContract $manager)
     {
-        $manager->add('ao', function () {
+        $manager->extend('ao', function () {
             return new AwesomeOscillatorIndicator;
         });
     }
@@ -57,7 +57,7 @@ class IndicatorServiceProvider extends ServiceProvider
      */
     protected function registerCmoIndicator(IndicatorManagerContract $manager)
     {
-        $manager->add('cmo', function () {
+        $manager->extend('cmo', function () {
             return new ChangeMomentumOscillatorIndicator;
         });
     }
