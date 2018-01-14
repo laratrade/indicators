@@ -14,6 +14,7 @@ Laravel package for trading indicators.
 Make sure all dependencies have been installed before moving on:
 
 * [PHP](http://php.net/manual/en/install.php) >= 7.0
+* [PECL Trader](http://php.net/manual/en/trader.installation.php)
 * [Composer](https://getcomposer.org/download/)
 
 ## Install
