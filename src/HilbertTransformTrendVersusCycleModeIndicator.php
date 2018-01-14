@@ -16,7 +16,14 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataException;
  */
 class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param bool       $numperiods
+     *
+     * @return int
+     */
     public function __invoke(Collection $ohlcv, bool $numperiods = false): int
     {
 

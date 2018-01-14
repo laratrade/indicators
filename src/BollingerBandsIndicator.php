@@ -35,7 +35,16 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataException;
  */
 class BollingerBandsIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param int        $period
+     * @param int        $devup
+     * @param int        $devdn
+     *
+     * @return int
+     */
     public function __invoke(Collection $ohlcv, int $period = 10, int $devup = 2, int $devdn = 2): int
     {
 

@@ -14,7 +14,19 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataException;
  */
 class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param int        $fastPeriod
+     * @param int        $fastMAType
+     * @param int        $slowPeriod
+     * @param int        $slowMAType
+     * @param int        $signalPeriod
+     * @param int        $signalMAType
+     *
+     * @return int
+     */
     public function __invoke(
         Collection $ohlcv,
         int $fastPeriod = 12,

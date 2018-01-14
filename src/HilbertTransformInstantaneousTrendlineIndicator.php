@@ -34,7 +34,14 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataException;
  */
 class HilbertTransformInstantaneousTrendlineIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param int        $period
+     *
+     * @return int
+     */
     public function __invoke(Collection $ohlcv, int $period = 14): int
     {
 

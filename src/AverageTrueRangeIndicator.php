@@ -21,16 +21,22 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataException;
  */
 class AverageTrueRangeIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param int        $period
+     *
+     * @return int
+     */
     public function __invoke(Collection $ohlcv, int $period = 14): int
     {
-
         if ($period > count($ohlcv->get('close'))) {
             $period = round(count($ohlcv->get('close')) / 2);
         }
 
-        $data2 = $ohlcv;
-        $current = array_pop($data2->get('close')); //[count($data['close']) - 1];    // we assume this is current
+        $data2      = $ohlcv;
+        $current    = array_pop($data2->get('close')); //[count($data['close']) - 1];    // we assume this is current
         $prev_close = array_pop($data2->get('close')); //[count($data['close']) - 2]; // prior close
 
         $atr = trader_atr(

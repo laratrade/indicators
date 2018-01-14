@@ -4,7 +4,6 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * Market Meanness Index (link) 
@@ -24,7 +23,14 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataException;
  */
 class MarketMeannessIndexIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param int        $period
+     *
+     * @return int
+     */
     public function __invoke(Collection $ohlcv, int $period = 200): int
     {
 
@@ -33,8 +39,8 @@ class MarketMeannessIndexIndicator implements Indicator
             $data_close[] = $point;
         }
 
-        $nl = $nh = 0;
-        $len = count($data_close);
+        $nl     = $nh = 0;
+        $len    = count($data_close);
         $median = (array_sum($data_close) / $len);
 
         for ($a = 0; $a < $len; $a++) {

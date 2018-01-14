@@ -17,7 +17,14 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataException;
  */
 class HilbertTransformSinewaveIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param bool       $trend
+     *
+     * @return int
+     */
     public function __invoke(Collection $ohlcv, bool $trend = false): int
     {
 
@@ -27,10 +34,10 @@ class HilbertTransformSinewaveIndicator implements Indicator
         }
 
 
-        $dcsine = array_pop($hts[1]);
+        $dcsine   = array_pop($hts[1]);
         $p_dcsine = array_pop($hts[1]);
         // leadsine is the first one it looks like.
-        $leadsine = array_pop($hts[0]);
+        $leadsine   = array_pop($hts[0]);
         $p_leadsine = array_pop($hts[0]);
 
         if ($trend) {
