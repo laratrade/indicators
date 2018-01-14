@@ -38,8 +38,15 @@
         }
     },
     "scripts": {
-        "lint": "phpcs -p --standard=psr2 src",
-        "test": "phpunit"
+        "lint": "phpcs -p --standard=psr2 app",
+        "phpunit": "phpunit",
+        "phpunit-integration": "phpunit --testsuite Integration",
+        "phpunit-unit": "phpunit --testsuite Unit",
+        "phpunit-coverage": "phpunit --coverage-clover=coverage.clover",
+        "test": [
+            "@lint",
+            "@phpunit"
+        ]
     },
     "extra": {
         "laravel": {
