@@ -10,13 +10,6 @@ use Throwable;
 class HilbertTransformSinewaveIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'hts';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

@@ -10,13 +10,6 @@ use Throwable;
 class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'httvcm';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

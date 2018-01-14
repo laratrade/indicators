@@ -10,13 +10,6 @@ use Throwable;
 class MoneyFlowIndexIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'mfi';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

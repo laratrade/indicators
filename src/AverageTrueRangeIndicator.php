@@ -10,13 +10,6 @@ use Throwable;
 class AverageTrueRangeIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'atr';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

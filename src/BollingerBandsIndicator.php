@@ -10,13 +10,6 @@ use Throwable;
 class BollingerBandsIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'bb';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

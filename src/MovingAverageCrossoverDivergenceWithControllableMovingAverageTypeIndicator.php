@@ -10,13 +10,6 @@ use Throwable;
 class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'macdwcmat';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

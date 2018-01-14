@@ -10,13 +10,6 @@ use Throwable;
 class ChangeMomentumOscillatorIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'cmo';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

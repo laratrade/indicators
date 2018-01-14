@@ -10,13 +10,6 @@ use Throwable;
 class CommodityChannelIndexIndicator implements Indicator
 {
     /**
-     * The shortcut name.
-     *
-     * @var string
-     */
-    const SHORTCUT = 'cci';
-
-    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
