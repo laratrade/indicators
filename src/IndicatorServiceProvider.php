@@ -18,7 +18,7 @@ class IndicatorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        //
     }
 
     /**
