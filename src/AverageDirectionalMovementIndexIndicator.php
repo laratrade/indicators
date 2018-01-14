@@ -1,10 +1,10 @@
 <?php
+
 namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
-
 
 /**
  * Average Directional Movement Index
@@ -18,17 +18,17 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
  * ADX can also be used to determine when one should close a trade early. For instance, when ADX starts to slide below 50,
  * it indicates that the current trend is possibly losing steam.
  *
- * ADX Value 	Trend Strength
- *      0-25 	Absent or Weak Trend
- *     25-50 	Strong Trend
- *     50-75 	Very Strong Trend
- *     75-100 	Extremely Strong Trend
+ * ADX Value    Trend Strength
+ *      0-25    Absent or Weak Trend
+ *     25-50    Strong Trend
+ *     50-75    Very Strong Trend
+ *     75-100    Extremely Strong Trend
  */
 class AverageDirectionalMovementIndexIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 14): int
-    {
+    public function __invoke(Collection $ohlcv, int $period = 14)
+    : int {
         $adx = trader_adx(
             $ohlcv->get('high'),
             $ohlcv->get('low'),
@@ -49,5 +49,4 @@ class AverageDirectionalMovementIndexIndicator implements Indicator
             return static::HOLD;
         }
     }
-
 }

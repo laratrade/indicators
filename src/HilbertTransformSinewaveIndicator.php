@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 
-
 /**
  * Hilbert Transform - Sinewave (MESA indicator)
  *
@@ -19,19 +18,19 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class HilbertTransformSinewaveIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, bool $trend = false): int
-    {
+    public function __invoke(Collection $ohlcv, bool $trend = false)
+    : int {
 
-        $hts        = trader_ht_sine($ohlcv->get('open'), $ohlcv->get('close'));
+        $hts = trader_ht_sine($ohlcv->get('open'), $ohlcv->get('close'));
         if (false === $hts) {
             throw new NotEnoughDataPointsException('Not enough data points');
         }
 
 
-        $dcsine     = array_pop($hts[1]);
-        $p_dcsine   = array_pop($hts[1]);
+        $dcsine = array_pop($hts[1]);
+        $p_dcsine = array_pop($hts[1]);
         // leadsine is the first one it looks like.
-        $leadsine   = array_pop($hts[0]);
+        $leadsine = array_pop($hts[0]);
         $p_leadsine = array_pop($hts[0]);
 
         if ($trend) {

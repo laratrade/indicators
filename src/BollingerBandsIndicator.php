@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 
-
 /**
  * Bollinger Band Indicator
  *
@@ -37,28 +36,28 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class BollingerBandsIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 10, int $devup = 2, int $devdn = 2): int
-    {
+    public function __invoke(Collection $ohlcv, int $period = 10, int $devup = 2, int $devdn = 2)
+    : int {
 
         $data2 = $ohlcv;
-        
+
         // $prev_close = array_pop($data2['close']); #[count($data['close']) - 2]; // prior close
         $current = array_pop($data2->get('close')); #[count($data['close']) - 1];    // we assume this is current
-        
+
         // array $real [, integer $timePeriod [, float $nbDevUp [, float $nbDevDn [, integer $mAType ]]]]
         $bbands = trader_bbands(
             $ohlcv->get('close'),
-            $period, 
-            $devup, 
-            $devdn, 
+            $period,
+            $devup,
+            $devdn,
             0);
-        
+
         if (false === $bbands) {
             throw new NotEnoughDataPointsException('Not enough data points');
         }
-                
-        $upper  = $bbands[0];
-        
+
+        $upper = $bbands[0];
+
         // $middle = $bbands[1]; 
         // we'll find a use for you, one day
         $lower = $bbands[2];
@@ -68,9 +67,9 @@ class BollingerBandsIndicator implements Indicator
             return static::BUY;
             // If price is above the recent upper band
         } elseif ($current >= array_pop($upper)) {
-            return static::SELL; 
+            return static::SELL;
         } else {
-            return static::HOLD; 
+            return static::HOLD;
         }
     }
 

@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 
-
 /**
  * Hilbert Transform - Instantaneous Trendline 
  *
@@ -21,8 +20,8 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
  *
  * smoothed trendline, if the
  * price moves 1.5% away from the trendline we can declare a trend.
- * 
- * 
+ *
+ *
  * WMA(4)
  * trader_ht_trendline
  *
@@ -35,34 +34,34 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class HilbertTransformInstantaneousTrendlineIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $period = 14): int
-    {
+    public function __invoke(Collection $ohlcv, int $period = 14)
+    : int {
 
         $declared = $uptrend = $downtrend = 0;
-        $a_htl    = $a_wma4 = [];
-        $htl      = trader_ht_trendline($ohlcv->get('close'));
+        $a_htl = $a_wma4 = [];
+        $htl = trader_ht_trendline($ohlcv->get('close'));
 
         if (false === $htl) {
             throw new NotEnoughDataPointsException('Not enough data points');
         }
 
 
-        $wma4     = trader_wma($ohlcv->get('close'), 4);
+        $wma4 = trader_wma($ohlcv->get('close'), 4);
 
         for ($a = 0; $a < 5; $a++) {
-            $a_htl[$a]  = array_pop($htl);
+            $a_htl[$a] = array_pop($htl);
             $a_wma4[$a] = array_pop($wma4);
-            $uptrend    += ($a_wma4[$a] > $a_htl[$a] ? 1 : 0);
-            $downtrend  += ($a_wma4[$a] < $a_htl[$a] ? 1 : 0);
+            $uptrend += ($a_wma4[$a] > $a_htl[$a] ? 1 : 0);
+            $downtrend += ($a_wma4[$a] < $a_htl[$a] ? 1 : 0);
 
             $declared = (($a_wma4[$a] - $a_htl[$a]) / $a_htl[$a]);
         }
-        
-        
+
+
         if ($uptrend || $declared >= 0.15) {
             return static::BUY;
         }
-        
+
         if ($downtrend || $declared <= 0.15) {
             return static::SELL;
         }

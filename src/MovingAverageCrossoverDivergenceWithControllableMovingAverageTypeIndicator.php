@@ -1,10 +1,10 @@
 <?php
+
 namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
-
 
 /**
  * MACD indicator with controllable types and tweakable periods.
@@ -15,25 +15,25 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
 class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator implements Indicator
 {
 
-    public function __invoke(Collection $ohlcv, int $fastPeriod = 12, int $fastMAType = 0, int $slowPeriod = 26, int $slowMAType = 0, int $signalPeriod = 9, int $signalMAType = 0): int
-    {
+    public function __invoke(Collection $ohlcv, int $fastPeriod = 12, int $fastMAType = 0, int $slowPeriod = 26, int $slowMAType = 0, int $signalPeriod = 9, int $signalMAType = 0)
+    : int {
 
-        $fastMAType   = $this->ma_type($fastMAType);
-        $slowMAType   = $this->ma_type($slowMAType);
+        $fastMAType = $this->ma_type($fastMAType);
+        $slowMAType = $this->ma_type($slowMAType);
         $signalMAType = $this->ma_type($signalMAType);
 
         // Create the MACD signal and pass in the three parameters: fast period, slow period, and the signal.
         // we will want to tweak these periods later for now these are fine.
-        $macd     = trader_macdext($ohlcv->get('close'), $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType);
+        $macd = trader_macdext($ohlcv->get('close'), $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType);
         if (false === $macd) {
             throw new NotEnoughDataPointsException('Not enough data points');
         }
 
 
         $macd_raw = $macd[0];
-        $signal   = $macd[1];
-        $hist     = $macd[2];
-        
+        $signal = $macd[1];
+        $hist = $macd[2];
+
         if (!empty($macd)) {
             $macd = array_pop($macd[0]) - array_pop($macd[1]);
             // Close position for the pair when the MACD signal is negative
