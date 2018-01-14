@@ -13,17 +13,17 @@ class ChangeMomentumOscillatorIndicator implements Indicator
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
-     * @param int        $period
+     * @param int        $timePeriod
      *
      * @return int
      *
      * @throws Throwable
      */
-    public function __invoke(Collection $ohlcv, int $period = 14): int
+    public function __invoke(Collection $ohlcv, int $timePeriod = 14): int
     {
         $cmo = trader_cmo(
             $ohlcv->get('close'),
-            $period
+            $timePeriod
         );
 
         throw_unless($cmo, NotEnoughDataException::class);

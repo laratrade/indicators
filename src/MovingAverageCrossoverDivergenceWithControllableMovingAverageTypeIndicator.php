@@ -19,7 +19,7 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
-     * @param int        $fastPeriod
+     * @param int        $fastTimePeriod
      * @param int        $fastMAType
      * @param int        $slowPeriod
      * @param int        $slowMAType
@@ -32,7 +32,7 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
      */
     public function __invoke(
         Collection $ohlcv,
-        int $fastPeriod = 12,
+        int $fastTimePeriod = 12,
         int $fastMAType = 0,
         int $slowPeriod = 26,
         int $slowMAType = 0,
@@ -41,7 +41,7 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
     ): int {
         $macdext = trader_macdext(
             $ohlcv->get('close'),
-            $fastPeriod,
+            $fastTimePeriod,
             $fastMAType,
             $slowPeriod,
             $slowMAType,

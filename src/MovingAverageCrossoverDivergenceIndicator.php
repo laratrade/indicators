@@ -13,7 +13,7 @@ class MovingAverageCrossoverDivergenceIndicator implements Indicator
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
-     * @param int        $period
+     * @param int        $timePeriod
      * @param int        $slowPeriod
      * @param int        $signalPeriod
      *
@@ -21,11 +21,11 @@ class MovingAverageCrossoverDivergenceIndicator implements Indicator
      *
      * @throws Throwable
      */
-    public function __invoke(Collection $ohlcv, int $period = 12, int $slowPeriod = 26, int $signalPeriod = 9): int
+    public function __invoke(Collection $ohlcv, int $timePeriod = 12, int $slowPeriod = 26, int $signalPeriod = 9): int
     {
         $macd = trader_macd(
             $ohlcv->get('close'),
-            $period,
+            $timePeriod,
             $slowPeriod,
             $signalPeriod
         );

@@ -12,7 +12,7 @@ class BollingerBandsIndicator implements Indicator
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
-     * @param int        $period
+     * @param int        $timePeriod
      * @param float      $nbDevUp
      * @param float      $nbDevDn
      * @param int        $mAType
@@ -23,7 +23,7 @@ class BollingerBandsIndicator implements Indicator
      */
     public function __invoke(
         Collection $ohlcv,
-        int $period = 10,
+        int $timePeriod = 10,
         float $nbDevUp = 2,
         float $nbDevDn = 2,
         int $mAType = 0
@@ -33,7 +33,7 @@ class BollingerBandsIndicator implements Indicator
 
         $bbands = trader_bbands(
             $ohlcv->get('close'),
-            $period,
+            $timePeriod,
             $nbDevUp,
             $nbDevDn,
             $mAType

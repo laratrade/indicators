@@ -11,11 +11,11 @@ class MarketMeannessIndexIndicator implements Indicator
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
-     * @param int        $period
+     * @param int        $timePeriod
      *
      * @return int
      */
-    public function __invoke(Collection $ohlcv, int $period = 200): int
+    public function __invoke(Collection $ohlcv, int $timePeriod = 200): int
     {
         $close  = $ohlcv->get('close');
         $length = count($close);

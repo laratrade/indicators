@@ -13,19 +13,19 @@ class HilbertTransformInstantaneousTrendlineIndicator implements Indicator
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
-     * @param int        $period
+     * @param int        $timePeriod
      *
      * @return int
      *
      * @throws Throwable
      */
-    public function __invoke(Collection $ohlcv, int $period = 4): int
+    public function __invoke(Collection $ohlcv, int $timePeriod = 4): int
     {
         $htl = trader_ht_trendline($ohlcv->get('close'));
 
         throw_unless($htl, NotEnoughDataException::class);
 
-        $wma = trader_wma($ohlcv->get('close'), $period);
+        $wma = trader_wma($ohlcv->get('close'), $timePeriod);
 
         throw_unless($htl, NotEnoughDataException::class);
 
