@@ -8,6 +8,13 @@ use Laratrade\Indicators\Contracts\Indicator;
 class MarketMeannessIndexIndicator implements Indicator
 {
     /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'mmi';
+
+    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

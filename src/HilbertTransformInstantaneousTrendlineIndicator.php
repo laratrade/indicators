@@ -10,6 +10,13 @@ use Throwable;
 class HilbertTransformInstantaneousTrendlineIndicator implements Indicator
 {
     /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'htit';
+
+    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

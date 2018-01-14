@@ -7,17 +7,15 @@ use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 use Throwable;
 
-/**
- * Hilbert Transform - Sinewave (MESA indicator)
- *
- *
- * We are actually using DSP
- * on the prices to attempt to get a lag-free/low-lag indicator.
- * This indicator can be passed an extra parameter and it will tell you in
- * we are in a trend or not. (when used as an indicator do not use in a trending market)
- */
 class HilbertTransformSinewaveIndicator implements Indicator
 {
+    /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'hts';
+
     /**
      * Invoke the indicator.
      *

@@ -7,14 +7,15 @@ use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 use Throwable;
 
-/**
- * MACD indicator with controllable types and tweakable periods.
- *
- *
- * all periods are ranges of 2 to 100,000
- */
 class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator implements Indicator
 {
+    /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'macdwcmat';
+
     /**
      * Invoke the indicator.
      *

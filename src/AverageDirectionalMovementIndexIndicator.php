@@ -10,6 +10,13 @@ use Throwable;
 class AverageDirectionalMovementIndexIndicator implements Indicator
 {
     /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'admi';
+
+    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

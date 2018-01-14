@@ -5,9 +5,17 @@ namespace Laratrade\Indicators;
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataException;
+use Throwable;
 
 class BollingerBandsIndicator implements Indicator
 {
+    /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'bb';
+
     /**
      * Invoke the indicator.
      *
@@ -19,7 +27,7 @@ class BollingerBandsIndicator implements Indicator
      *
      * @return int
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function __invoke(
         Collection $ohlcv,

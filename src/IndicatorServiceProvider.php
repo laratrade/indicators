@@ -15,6 +15,28 @@ class IndicatorServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+     * The indicator collection.
+     *
+     * @var array
+     */
+    protected $indicators = [
+        AverageDirectionalMovementIndexIndicator::SHORTCUT                                   => AverageDirectionalMovementIndexIndicator::class,
+        AverageTrueRangeIndicator::SHORTCUT                                                  => AverageTrueRangeIndicator::class,
+        AwesomeOscillatorIndicator::SHORTCUT                                                 => AwesomeOscillatorIndicator::class,
+        BollingerBandsIndicator::SHORTCUT                                                    => BollingerBandsIndicator::class,
+        ChangeMomentumOscillatorIndicator::SHORTCUT                                          => ChangeMomentumOscillatorIndicator::class,
+        CommodityChannelIndexIndicator::SHORTCUT                                             => CommodityChannelIndexIndicator::class,
+        HilbertTransformInstantaneousTrendlineIndicator::SHORTCUT                            => HilbertTransformInstantaneousTrendlineIndicator::class,
+        HilbertTransformSinewaveIndicator::SHORTCUT                                          => HilbertTransformSinewaveIndicator::class,
+        HilbertTransformTrendVersusCycleModeIndicator::SHORTCUT                              => HilbertTransformTrendVersusCycleModeIndicator::class,
+        MarketMeannessIndexIndicator::SHORTCUT                                               => MarketMeannessIndexIndicator::class,
+        MoneyFlowIndexIndicator::SHORTCUT                                                    => MoneyFlowIndexIndicator::class,
+        MovingAverageCrossoverDivergenceIndicator::SHORTCUT                                  => MovingAverageCrossoverDivergenceIndicator::class,
+        MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator::SHORTCUT => MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator::class,
+        OnBalanceVolumeIndicator::SHORTCUT                                                   => OnBalanceVolumeIndicator::class,
+    ];
+
+    /**
      * Register the service provider.
      */
     public function register()
@@ -33,33 +55,11 @@ class IndicatorServiceProvider extends ServiceProvider
      */
     protected function registerIndicators(IndicatorManagerContract $manager)
     {
-        foreach (['Ao', 'Cmo'] as $indicator) {
-            $this->{"register{$indicator}Indicator"}($manager);
+        foreach ($this->indicators as $shortcut => $indicator) {
+            $manager->extend($shortcut, function () use ($indicator) {
+                return new $indicator;
+            });
         }
-    }
-
-    /**
-     * Register the awesome oscillator indicator.
-     *
-     * @param IndicatorManagerContract $manager
-     */
-    protected function registerAoIndicator(IndicatorManagerContract $manager)
-    {
-        $manager->extend('ao', function () {
-            return new AwesomeOscillatorIndicator;
-        });
-    }
-
-    /**
-     * Register the change momentum oscillator indicator.
-     *
-     * @param IndicatorManagerContract $manager
-     */
-    protected function registerCmoIndicator(IndicatorManagerContract $manager)
-    {
-        $manager->extend('cmo', function () {
-            return new ChangeMomentumOscillatorIndicator;
-        });
     }
 
     /**

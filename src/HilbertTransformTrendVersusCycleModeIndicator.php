@@ -7,16 +7,15 @@ use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 use Throwable;
 
-/**
- * Hilbert Transform - Trend vs Cycle Mode
- *
- *
- * Simply tell us if the market is
- * either trending or cycling, with an additional parameter the method returns
- * the number of days we have been in a trend or a cycle.
- */
 class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
 {
+    /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'httvcm';
+
     /**
      * Invoke the indicator.
      *

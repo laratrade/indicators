@@ -8,6 +8,13 @@ use Laratrade\Indicators\Contracts\Indicator;
 class AwesomeOscillatorIndicator implements Indicator
 {
     /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'ao';
+
+    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv

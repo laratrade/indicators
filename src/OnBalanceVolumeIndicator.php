@@ -10,6 +10,13 @@ use Throwable;
 class OnBalanceVolumeIndicator implements Indicator
 {
     /**
+     * The shortcut name.
+     *
+     * @var string
+     */
+    const SHORTCUT = 'obv';
+
+    /**
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
