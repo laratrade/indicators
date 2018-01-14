@@ -54,7 +54,7 @@ class BollingerBandsIndicator implements Indicator
         );
 
         if (false === $bbands) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
         $upper = $bbands[0];

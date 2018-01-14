@@ -23,7 +23,7 @@ class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
         $a_htm = trader_ht_trendmode($ohlcv->get('close'));
 
         if (false === $a_htm) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
 

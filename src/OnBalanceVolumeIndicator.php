@@ -23,7 +23,7 @@ class OnBalanceVolumeIndicator implements Indicator
         $obv = trader_obv($ohlcv->get('close'), $ohlcv->get('volume'));
 
         if (false === $obv) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
         $current_obv = array_pop($obv);

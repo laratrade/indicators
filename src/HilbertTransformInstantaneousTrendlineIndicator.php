@@ -43,7 +43,7 @@ class HilbertTransformInstantaneousTrendlineIndicator implements Indicator
         $htl = trader_ht_trendline($ohlcv->get('close'));
 
         if (false === $htl) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
 

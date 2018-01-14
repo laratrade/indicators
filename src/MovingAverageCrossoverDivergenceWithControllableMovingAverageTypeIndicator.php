@@ -38,7 +38,7 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
         );
 
         if (false === $macd) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
         if (!empty($macd)) {

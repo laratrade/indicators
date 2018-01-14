@@ -23,7 +23,7 @@ class HilbertTransformSinewaveIndicator implements Indicator
 
         $hts = trader_ht_sine($ohlcv->get('open'), $ohlcv->get('close'));
         if (false === $hts) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
 

@@ -41,7 +41,7 @@ class AverageTrueRangeIndicator implements Indicator
         );
 
         if (false === $atr) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
 

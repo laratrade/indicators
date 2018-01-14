@@ -26,7 +26,14 @@ use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
  */
 class AverageDirectionalMovementIndexIndicator implements Indicator
 {
-
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param int        $period
+     *
+     * @return int
+     */
     public function __invoke(Collection $ohlcv, int $period = 14): int
     {
         $adx = trader_adx(
@@ -37,7 +44,7 @@ class AverageDirectionalMovementIndexIndicator implements Indicator
         );
 
         if (false === $adx) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
         $adx = array_pop($adx); //[count($adx) - 1];

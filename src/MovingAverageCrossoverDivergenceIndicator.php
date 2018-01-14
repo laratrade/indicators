@@ -42,7 +42,7 @@ class MovingAverageCrossoverDivergenceIndicator implements Indicator
         );
 
         if (false === $macd) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
 
@@ -51,7 +51,7 @@ class MovingAverageCrossoverDivergenceIndicator implements Indicator
 
         //If not enough Elements for the Function to complete
         if (!$macd || !$macd_raw) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
         //$macd = $macd_raw[count($macd_raw)-1] - $signal[count($signal)-1];

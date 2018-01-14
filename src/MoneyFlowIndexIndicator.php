@@ -32,7 +32,7 @@ class MoneyFlowIndexIndicator implements Indicator
         );
 
         if (false === $mfi) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
         $mfiValue = array_pop($mfi);

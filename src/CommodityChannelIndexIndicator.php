@@ -25,7 +25,7 @@ class CommodityChannelIndexIndicator implements Indicator
         $cci = trader_cci($ohlcv->get('high'), $ohlcv->get('low'), $ohlcv->get('close'), $period);
 
         if (false === $cci) {
-            throw new NotEnoughDataPointsException('Not enough data points');
+            throw new NotEnoughDataPointsException;
         }
 
         $cci = array_pop($cci); #[count($cci) - 1];
