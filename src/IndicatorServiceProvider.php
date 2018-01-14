@@ -15,47 +15,71 @@ class IndicatorServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
-     * The indicator collection.
-     *
-     * @var array
-     */
-    protected $indicators = [
-        AverageDirectionalMovementIndexIndicator::SHORTCUT                                   => AverageDirectionalMovementIndexIndicator::class,
-        AverageTrueRangeIndicator::SHORTCUT                                                  => AverageTrueRangeIndicator::class,
-        AwesomeOscillatorIndicator::SHORTCUT                                                 => AwesomeOscillatorIndicator::class,
-        BollingerBandsIndicator::SHORTCUT                                                    => BollingerBandsIndicator::class,
-        ChangeMomentumOscillatorIndicator::SHORTCUT                                          => ChangeMomentumOscillatorIndicator::class,
-        CommodityChannelIndexIndicator::SHORTCUT                                             => CommodityChannelIndexIndicator::class,
-        HilbertTransformInstantaneousTrendlineIndicator::SHORTCUT                            => HilbertTransformInstantaneousTrendlineIndicator::class,
-        HilbertTransformSinewaveIndicator::SHORTCUT                                          => HilbertTransformSinewaveIndicator::class,
-        HilbertTransformTrendVersusCycleModeIndicator::SHORTCUT                              => HilbertTransformTrendVersusCycleModeIndicator::class,
-        MarketMeannessIndexIndicator::SHORTCUT                                               => MarketMeannessIndexIndicator::class,
-        MoneyFlowIndexIndicator::SHORTCUT                                                    => MoneyFlowIndexIndicator::class,
-        MovingAverageCrossoverDivergenceIndicator::SHORTCUT                                  => MovingAverageCrossoverDivergenceIndicator::class,
-        MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator::SHORTCUT => MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator::class,
-        OnBalanceVolumeIndicator::SHORTCUT                                                   => OnBalanceVolumeIndicator::class,
-    ];
-
-    /**
      * Register the service provider.
      */
     public function register()
     {
-        $this->app->bind(IndicatorManagerContract::class, function () {
+        $this
+            ->configure()
+            ->offerPublishing()
+            ->registerManager();
+    }
+
+    /**
+     * Setup the configuration.
+     *
+     * @return $this
+     */
+    protected function configure()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/indicators.php',
+            'indicators'
+        );
+
+        return $this;
+    }
+
+    /**
+     * Setup the resource publishing group.
+     *
+     * @return $this
+     */
+    protected function offerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/indicators.php' => config_path('indicators.php'),
+            ], 'indicators');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Register the indicator manager.
+     *
+     * @return $this
+     */
+    protected function registerManager()
+    {
+        $this->app->singleton(IndicatorManagerContract::class, function () {
             return tap(new IndicatorManager, function ($manager) {
                 $this->registerIndicators($manager);
             });
         });
+
+        return $this;
     }
 
     /**
-     * Register the indicators on the manager.
+     * Register the indicators.
      *
      * @param IndicatorManagerContract $manager
      */
     protected function registerIndicators(IndicatorManagerContract $manager)
     {
-        foreach ($this->indicators as $shortcut => $indicator) {
+        foreach (config('indicators') as $shortcut => $indicator) {
             $manager->extend($shortcut, function () use ($indicator) {
                 return new $indicator;
             });
