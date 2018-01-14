@@ -53,6 +53,8 @@ class IndicatorManager implements IndicatorManagerContract
      */
     public function __call(string $indicator, array $parameters): int
     {
-        return $this->resolve($indicator)($parameters[0]);
+        $function = $this->resolve($indicator);
+
+        return $function($parameters[0]);
     }
 }
