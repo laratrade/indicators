@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * Hilbert Transform - Instantaneous Trendline 
@@ -43,7 +43,7 @@ class HilbertTransformInstantaneousTrendlineIndicator implements Indicator
         $htl = trader_ht_trendline($ohlcv->get('close'));
 
         if (false === $htl) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
 

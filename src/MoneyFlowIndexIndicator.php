@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * Money Flow Index
@@ -32,7 +32,7 @@ class MoneyFlowIndexIndicator implements Indicator
         );
 
         if (false === $mfi) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
         $mfiValue = array_pop($mfi);

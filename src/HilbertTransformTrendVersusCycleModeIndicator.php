@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * Hilbert Transform - Trend vs Cycle Mode
@@ -23,7 +23,7 @@ class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
         $a_htm = trader_ht_trendmode($ohlcv->get('close'));
 
         if (false === $a_htm) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
 

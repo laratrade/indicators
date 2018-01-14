@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 class ChangeMomentumOscillatorIndicator implements Indicator
 {
@@ -24,7 +24,7 @@ class ChangeMomentumOscillatorIndicator implements Indicator
         );
 
         if (false === $cmo) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
         $cmoValue = array_pop($cmo);

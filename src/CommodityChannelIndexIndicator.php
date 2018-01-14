@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * Commodity Channel Index
@@ -25,7 +25,7 @@ class CommodityChannelIndexIndicator implements Indicator
         $cci = trader_cci($ohlcv->get('high'), $ohlcv->get('low'), $ohlcv->get('close'), $period);
 
         if (false === $cci) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
         $cci = array_pop($cci); #[count($cci) - 1];

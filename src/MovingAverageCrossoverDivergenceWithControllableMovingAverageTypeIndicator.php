@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * MACD indicator with controllable types and tweakable periods.
@@ -38,7 +38,7 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
         );
 
         if (false === $macd) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
         if (!empty($macd)) {

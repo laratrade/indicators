@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * On Balance Volume
@@ -23,7 +23,7 @@ class OnBalanceVolumeIndicator implements Indicator
         $obv = trader_obv($ohlcv->get('close'), $ohlcv->get('volume'));
 
         if (false === $obv) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
         $current_obv = array_pop($obv);

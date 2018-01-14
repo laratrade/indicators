@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * Average Directional Movement Index
@@ -44,7 +44,7 @@ class AverageDirectionalMovementIndexIndicator implements Indicator
         );
 
         if (false === $adx) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
         $adx = array_pop($adx); //[count($adx) - 1];

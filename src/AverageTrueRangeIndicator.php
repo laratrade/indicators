@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  * Average True Range
@@ -41,7 +41,7 @@ class AverageTrueRangeIndicator implements Indicator
         );
 
         if (false === $atr) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
 

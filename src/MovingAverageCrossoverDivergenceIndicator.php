@@ -4,7 +4,7 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
 
 /**
  *
@@ -42,7 +42,7 @@ class MovingAverageCrossoverDivergenceIndicator implements Indicator
         );
 
         if (false === $macd) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
 
@@ -51,7 +51,7 @@ class MovingAverageCrossoverDivergenceIndicator implements Indicator
 
         //If not enough Elements for the Function to complete
         if (!$macd || !$macd_raw) {
-            throw new NotEnoughDataPointsException;
+            throw new NotEnoughDataException;
         }
 
         //$macd = $macd_raw[count($macd_raw)-1] - $signal[count($signal)-1];
