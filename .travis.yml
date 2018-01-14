@@ -13,7 +13,8 @@ cache:
         - $HOME/.composer/cache
 
 before_script:
-    - travis_retry composer update --no-interaction --prefer-dist
+    - pecl isntall trader
+    - composer update --no-interaction --prefer-dist
 
 script:
     - composer lint
