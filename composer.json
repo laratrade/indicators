@@ -38,7 +38,7 @@
         }
     },
     "scripts": {
-        "lint": "phpcs -p --standard=psr2 app",
+        "lint": "phpcs -p --standard=psr2 src",
         "phpunit": "phpunit",
         "phpunit-integration": "phpunit --testsuite Integration",
         "phpunit-unit": "phpunit --testsuite Unit",
