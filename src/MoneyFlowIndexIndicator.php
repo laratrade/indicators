@@ -5,6 +5,7 @@ namespace Laratrade\Indicators;
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataException;
+use Throwable;
 
 /**
  * Money Flow Index
@@ -28,6 +29,8 @@ class MoneyFlowIndexIndicator implements Indicator
      * @param int        $period
      *
      * @return int
+     *
+     * @throws Throwable
      */
     public function __invoke(Collection $ohlcv, int $period = 14): int
     {
@@ -39,9 +42,7 @@ class MoneyFlowIndexIndicator implements Indicator
             $period
         );
 
-        if (false === $mfi) {
-            throw new NotEnoughDataException;
-        }
+        throw_unless($mfi, NotEnoughDataException::class);
 
         $mfiValue = array_pop($mfi);
 

@@ -5,6 +5,7 @@ namespace Laratrade\Indicators;
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataException;
+use Throwable;
 
 /**
  * MACD indicator with controllable types and tweakable periods.
@@ -26,6 +27,8 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
      * @param int        $signalMAType
      *
      * @return int
+     *
+     * @throws Throwable
      */
     public function __invoke(
         Collection $ohlcv,
@@ -36,10 +39,7 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
         int $signalPeriod = 9,
         int $signalMAType = 0
     ): int {
-
-        // Create the MACD signal and pass in the three parameters: fast period, slow period, and the signal.
-        // we will want to tweak these periods later for now these are fine.
-        $macd = trader_macdext(
+        $macdext = trader_macdext(
             $ohlcv->get('close'),
             $fastPeriod,
             $fastMAType,
@@ -49,23 +49,16 @@ class MovingAverageCrossoverDivergenceWithControllableMovingAverageTypeIndicator
             $signalMAType
         );
 
-        if (false === $macd) {
-            throw new NotEnoughDataException;
+        throw_unless($macdext, NotEnoughDataException::class);
+
+        $macdValue = array_pop($macdext[0]) - array_pop($macdext[1]);
+
+        if ($macdValue < 0) {
+            return static::SELL;
+        } elseif ($macdValue > 0) {
+            return static::BUY;
         }
 
-        if (!empty($macd)) {
-            $macd = array_pop($macd[0]) - array_pop($macd[1]);
-            // Close position for the pair when the MACD signal is negative
-            if ($macd < 0) {
-                return static::SELL;
-                // Enter the position for the pair when the MACD signal is positive
-            } elseif ($macd > 0) {
-                return static::BUY;
-            } else {
-                return static::HOLD;
-            }
-        }
-
-        return -2;
+        return static::HOLD;
     }
 }

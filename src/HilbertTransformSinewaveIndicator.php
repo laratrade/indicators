@@ -5,6 +5,7 @@ namespace Laratrade\Indicators;
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
 use Laratrade\Indicators\Exceptions\NotEnoughDataException;
+use Throwable;
 
 /**
  * Hilbert Transform - Sinewave (MESA indicator)
@@ -24,15 +25,17 @@ class HilbertTransformSinewaveIndicator implements Indicator
      * @param bool       $trend
      *
      * @return int
+     *
+     * @throws Throwable
      */
     public function __invoke(Collection $ohlcv, bool $trend = false): int
     {
+        $hts = trader_ht_sine(
+            $ohlcv->get('open'),
+            $ohlcv->get('close')
+        );
 
-        $hts = trader_ht_sine($ohlcv->get('open'), $ohlcv->get('close'));
-        if (false === $hts) {
-            throw new NotEnoughDataException;
-        }
-
+        throw_unless($hts, NotEnoughDataException::class);
 
         $dcsine   = array_pop($hts[1]);
         $p_dcsine = array_pop($hts[1]);
@@ -41,12 +44,9 @@ class HilbertTransformSinewaveIndicator implements Indicator
         $p_leadsine = array_pop($hts[0]);
 
         if ($trend) {
-            /** if the last two sets of both are negative */
             if ($dcsine < 0 && $p_dcsine < 0 && $leadsine < 0 && $p_leadsine < 0) {
                 return static::BUY; // uptrend
-            }
-            /** if the last two sets of both are positive */
-            if ($dcsine > 0 && $p_dcsine > 0 && $leadsine > 0 && $p_leadsine > 0) {
+            } elseif ($dcsine > 0 && $p_dcsine > 0 && $leadsine > 0 && $p_leadsine > 0) {
                 return static::SELL; // downtrend
             }
 
