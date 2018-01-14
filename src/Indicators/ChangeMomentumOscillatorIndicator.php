@@ -1,6 +1,6 @@
 <?php
 
-namespace Laratrade\Indicators;
+namespace Laratrade\Indicators\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
