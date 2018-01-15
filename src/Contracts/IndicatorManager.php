@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Support\Collection;
 
 /**
+ * @codingStandardsIgnoreStart
+ *
  * @method int admi(Collection $ohlcv, int $timePeriod = 14)
  * @method int atr(Collection $ohlcv, int $timePeriod = 14)
  * @method int ao(Collection $ohlcv)
@@ -20,6 +22,8 @@ use Illuminate\Support\Collection;
  * @method int macd(Collection $ohlcv, int $timePeriod = 12, int $slowPeriod = 26, int $signalPeriod = 9)
  * @method int macdwcmat(Collection $ohlcv, int $fastTimePeriod = 12, int $fastMAType = 0, int $slowPeriod = 26, int $slowMAType = 0, int $signalPeriod = 9, int $signalMAType = 0)
  * @method int obv(Collection $ohlcv)
+ *
+ * @codingStandardsIgnoreEnd
  */
 interface IndicatorManager
 {
