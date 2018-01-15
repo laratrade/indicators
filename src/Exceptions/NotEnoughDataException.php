@@ -4,7 +4,7 @@ namespace Laratrade\Indicators\Exceptions;
 
 use RuntimeException;
 
-class NotEnoughDataPointsException extends RuntimeException
+class NotEnoughDataException extends RuntimeException
 {
     //
 }

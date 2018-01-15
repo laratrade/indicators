@@ -4,46 +4,43 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
+use Throwable;
 
-/**
- * Hilbert Transform - Trend vs Cycle Mode
- *
- *
- * Simply tell us if the market is
- * either trending or cycling, with an additional parameter the method returns
- * the number of days we have been in a trend or a cycle.
- */
 class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
 {
-
-    public function __invoke(Collection $ohlcv, bool $numperiods = false): int
+    /**
+     * Invoke the indicator.
+     *
+     * @param Collection $ohlcv
+     * @param bool       $numPeriods
+     *
+     * @return int
+     *
+     * @throws Throwable
+     */
+    public function __invoke(Collection $ohlcv, bool $numPeriods = false): int
     {
+        $htm = trader_ht_trendmode(
+            $ohlcv->get('open'),
+            $ohlcv->get('close')
+        );
 
-        $a_htm = trader_ht_trendmode($ohlcv->get('close'));
+        throw_unless($htm, NotEnoughDataException::class);
 
-        if (false === $a_htm) {
-            throw new NotEnoughDataPointsException('Not enough data points');
-        }
-
-
-        if (!$a_htm) {
-            throw new \RuntimeException('Not enough data points. Maybe clear cache and start over.');
-        }
-
-        $htm = array_pop($a_htm);
+        $htmValue = array_pop($htm);
 
         /**
          *  We can return the number of periods we have been
          *  in either a trend or a cycle by calling this again with
          *  $numperiods == true
          */
-        if ($numperiods) {
+        if ($numPeriods) {
             $nump = 1;
 
-            for ($b = 0; $b < count($a_htm); $b++) {
-                $test = array_pop($a_htm);
-                if ($test == $htm) {
+            for ($b = 0; $b < count($htm); $b++) {
+                $test = array_pop($htm);
+                if ($test == $htmValue) {
                     $nump++;
                 } else {
                     break;
@@ -51,15 +48,10 @@ class HilbertTransformTrendVersusCycleModeIndicator implements Indicator
             }
 
             return $nump;
+        } elseif ($htmValue == 1) {
+            return static::BUY;
         }
 
-        /**
-         *  Otherwise we just return if we are in a trend or not.
-         */
-        if ($htm == 1) {
-            return 1; // we are in a trending mode
-        }
-
-        return 0; // we are cycling.
+        return static::HOLD;
     }
 }

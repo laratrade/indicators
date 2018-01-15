@@ -3,6 +3,7 @@
 namespace Laratrade\Indicators\Contracts;
 
 use Illuminate\Support\Collection;
+use Throwable;
 
 interface Indicator
 {
@@ -33,6 +34,8 @@ interface Indicator
      * @param Collection $ohlcv
      *
      * @return int
+     *
+     * @throws Throwable
      */
     public function __invoke(Collection $ohlcv): int;
 }

@@ -16,12 +16,12 @@ class AwesomeOscillatorIndicator implements Indicator
      */
     public function __invoke(Collection $ohlcv): int
     {
-        $highs = $ohlcv->get('high');
-        $lows  = $ohlcv->get('low');
+        $high = $ohlcv->get('high');
+        $low  = $ohlcv->get('low');
 
         $data = [];
-        foreach ($highs as $key => $value) {
-            $data[$key] = ($highs[$key] + $lows[$key]) / 2;
+        foreach ($high as $key => $value) {
+            $data[$key] = ($high[$key] + $low[$key]) / 2;
         }
 
         $sma1 = trader_sma($data, 5);
@@ -32,12 +32,12 @@ class AwesomeOscillatorIndicator implements Indicator
         $sma3 = trader_sma($data, 5);
         $sma4 = trader_sma($data, 34);
 
-        $prior = (array_pop($sma3) - array_pop($sma4)); // last 'tick'
-        $now   = (array_pop($sma1) - array_pop($sma2)); // current 'tick'
+        $last    = (array_pop($sma3) - array_pop($sma4));
+        $current = (array_pop($sma1) - array_pop($sma2));
 
-        if ($prior <= 0 && $now > 0) {
+        if ($last <= 0 && $current > 0) {
             return static::BUY;
-        } elseif ($prior >= 0 && $now < 0) {
+        } elseif ($last >= 0 && $current < 0) {
             return static::SELL;
         }
 

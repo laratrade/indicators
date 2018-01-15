@@ -19,47 +19,71 @@ class IndicatorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(IndicatorManagerContract::class, function () {
+        $this
+            ->configure()
+            ->offerPublishing()
+            ->registerManager();
+    }
+
+    /**
+     * Setup the configuration.
+     *
+     * @return $this
+     */
+    protected function configure()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/indicators.php',
+            'indicators'
+        );
+
+        return $this;
+    }
+
+    /**
+     * Setup the resource publishing group.
+     *
+     * @return $this
+     */
+    protected function offerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/indicators.php' => config_path('indicators.php'),
+            ], 'indicators');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Register the indicator manager.
+     *
+     * @return $this
+     */
+    protected function registerManager()
+    {
+        $this->app->singleton(IndicatorManagerContract::class, function () {
             return tap(new IndicatorManager, function ($manager) {
                 $this->registerIndicators($manager);
             });
         });
+
+        return $this;
     }
 
     /**
-     * Register the indicators on the manager.
+     * Register the indicators.
      *
      * @param IndicatorManagerContract $manager
      */
     protected function registerIndicators(IndicatorManagerContract $manager)
     {
-        foreach (['Ao', 'Cmo'] as $indicator) {
-            $this->{"register{$indicator}Indicator"}($manager);
+        foreach (config('indicators') as $shortcut => $indicator) {
+            $manager->extend($shortcut, function () use ($indicator) {
+                return new $indicator;
+            });
         }
-    }
-
-    /**
-     * Register the awesome oscillator indicator.
-     *
-     * @param IndicatorManagerContract $manager
-     */
-    protected function registerAoIndicator(IndicatorManagerContract $manager)
-    {
-        $manager->extend('ao', function () {
-            return new AwesomeOscillatorIndicator;
-        });
-    }
-
-    /**
-     * Register the change momentum oscillator indicator.
-     *
-     * @param IndicatorManagerContract $manager
-     */
-    protected function registerCmoIndicator(IndicatorManagerContract $manager)
-    {
-        $manager->extend('cmo', function () {
-            return new ChangeMomentumOscillatorIndicator;
-        });
     }
 
     /**

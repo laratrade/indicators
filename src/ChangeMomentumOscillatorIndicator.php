@@ -4,7 +4,8 @@ namespace Laratrade\Indicators;
 
 use Illuminate\Support\Collection;
 use Laratrade\Indicators\Contracts\Indicator;
-use Laratrade\Indicators\Exceptions\NotEnoughDataPointsException;
+use Laratrade\Indicators\Exceptions\NotEnoughDataException;
+use Throwable;
 
 class ChangeMomentumOscillatorIndicator implements Indicator
 {
@@ -12,20 +13,20 @@ class ChangeMomentumOscillatorIndicator implements Indicator
      * Invoke the indicator.
      *
      * @param Collection $ohlcv
-     * @param int        $period
+     * @param int        $timePeriod
      *
      * @return int
+     *
+     * @throws Throwable
      */
-    public function __invoke(Collection $ohlcv, int $period = 14): int
+    public function __invoke(Collection $ohlcv, int $timePeriod = 14): int
     {
         $cmo = trader_cmo(
             $ohlcv->get('close'),
-            $period
+            $timePeriod
         );
 
-        if (false === $cmo) {
-            throw new NotEnoughDataPointsException;
-        }
+        throw_unless($cmo, NotEnoughDataException::class);
 
         $cmoValue = array_pop($cmo);
 
